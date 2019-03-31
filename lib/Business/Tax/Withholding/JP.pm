@@ -111,13 +111,14 @@ Business::Tax::Withholding::JP は日本の消費税と源泉徴収自動計算�
 Business::Tax::Withholding::JP
 is useful calculator for long term in Japanese Business.
 
-Business::Tax::Withholding::JP は日本のビジネスで長期的に使えるモジュールです。
-
- 
 You can get correctly taxes and withholdings from price in your context
 without worrying about the special tax for reconstructing from the Earthquake.
- 
+
+the consumption tax B<rate is 8%>
+
+Business::Tax::Withholding::JP は日本のビジネスで長期的に使えるモジュールです。
 特別復興所得税の期限を心配することなく、請求価格から正しく税金額と源泉徴収額を計算できます。
+B<消費税率は8％>です。
  
 =head2 Constructor
 
