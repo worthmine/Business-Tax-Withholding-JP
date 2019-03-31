@@ -2,7 +2,6 @@ package Business::Tax::Withholding::JP;
 use 5.008001;
 use strict;
 use warnings;
-use Carp;
 
 our $VERSION = "0.01";
 
@@ -26,8 +25,11 @@ my %special = (
 );
 
 use Moose;
+use Time::Piece;
+my $t = localtime;
 
 has price => ( is => 'rw', isa => 'Int', required => 1 );
+has date => ( is => 'ro', isa => 'Str', default => $t->ymd() );
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
@@ -49,7 +51,7 @@ sub full {
 
 sub withholding {
     my $self = shift;
-    my $rate = $withholding{'rate'} + $special{'rate'};
+    my $rate = $self->rate();
     if( $self->price() <= border ) {
         return int( $self->price() * $rate );
     }else{
@@ -59,6 +61,16 @@ sub withholding {
     }
 }
 
+sub rate {
+    my $self = shift;
+    my $rate = $withholding{'rate'};
+    my $from = $t->strptime( $special{'from'}, '%Y-%m-%d');
+    my $until = $t->strptime( $special{'until'}, '%Y-%m-%d');
+    my $date = $t->strptime( $self->date(), '%Y-%m-%d');
+
+    return $rate if $date < $from or $until < $date;
+    return $rate + $special{'rate'};
+}
 sub total {
     my $self = shift;
     return $self->full - $self->withholding;
