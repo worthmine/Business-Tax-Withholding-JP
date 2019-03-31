@@ -118,7 +118,7 @@ the consumption tax B<rate is 8%>
 
 Business::Tax::Withholding::JP は日本のビジネスで長期的に使えるモジュールです。
 特別復興所得税の期限を心配することなく、請求価格から正しく税金額と源泉徴収額を計算できます。
-B<消費税率は8％>です。
+B<消費税率は8％> です。
  
 =head2 Constructor
 
