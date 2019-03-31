@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.com/worthmine/Business-Tax-Withholding-JP.svg?branch=master)](https://travis-ci.com/worthmine/Business-Tax-Withholding-JP) [![MetaCPAN Release](https://badge.fury.io/pl/Business-Tax-Withholding-JP.svg)](https://metacpan.org/release/Business-Tax-Withholding-JP)
 # NAME
 
 Business::Tax::Withholding::JP - auto calculation for Japanese tax and withholding
