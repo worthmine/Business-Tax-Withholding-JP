@@ -4,8 +4,9 @@ use Test::More 0.98 tests => 11;
 use lib 'lib';
 
 use Business::Tax::Withholding::JP;
-my $tax = Business::Tax::Withholding::JP->new( price => 10000 );
+my $tax = Business::Tax::Withholding::JP->new();
 
+$tax->price(10000);
 is $tax->net(), 10000, "net";                                       # 1
 is $tax->tax(), 800, "tax";                                         # 2
 is $tax->full(), 10800, "full";                                     # 3
