@@ -86,7 +86,7 @@ __END__
 
 Business::Tax::Withholding::JP - auto calculation for Japanese tax and withholding
 
-Business::Tax::Withholding::JP は日本の消費税と源泉徴収自動計算します。
+Business::Tax::Withholding::JP - 日本の消費税と源泉徴収を自動計算します。
 
  
 =head1 SYNOPSIS

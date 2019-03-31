@@ -1,5 +1,5 @@
 use strict;
-use Test::More 0.98 tests => 11;
+use Test::More 0.98 tests => 15;
 
 use lib 'lib';
 
@@ -25,4 +25,9 @@ $tax->price(3000000);
 is $tax->withholding(), 510500, "withholding with 3,000,000";       #10
 is $tax->total(), 2729500, "total with 3,000,000";                  #11
 
+$tax->price(1111111);
+is $tax->tax(), 88888, "tax with 1,111,111";                        #12
+is $tax->full(), 1199999, "full with 1,111,111";                    #13
+is $tax->withholding(), 124788, "withholding with 1,111,111";       #14
+is $tax->total(), 1075211, "total with 1,111,111";                  #15
 done_testing;
