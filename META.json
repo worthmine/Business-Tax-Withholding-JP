@@ -65,7 +65,7 @@
          "web" : "https://github.com/worthmine/Business-Tax-Withholding-JP"
       }
    },
-   "version" : "0.01",
+   "version" : "0.02",
    "x_authority" : "cpan:WORTHMINE",
    "x_serialization_backend" : "JSON::PP version 4.00",
    "x_static_install" : 1
