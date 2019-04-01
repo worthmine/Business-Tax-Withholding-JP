@@ -30,6 +30,7 @@ my $t = localtime;
 
 has price => ( is => 'rw', isa => 'Int', default => 0 );
 has date => ( is => 'rw', isa => 'Str', default => $t->ymd() );
+has no_wh => ( is => 'ro', isa => 'Bool', default => 0 );
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
@@ -51,6 +52,7 @@ sub full {
 
 sub withholding {
     my $self = shift;
+    return 0 if $self->no_wh();
     my $rate = $self->rate();
     if( $self->price() <= border ) {
         return int( $self->price() * $rate );
@@ -71,6 +73,7 @@ sub rate {
     return $rate if $date < $from or $until < $date;
     return $rate + $special{'rate'};
 }
+
 sub total {
     my $self = shift;
     return $self->full - $self->withholding;
@@ -86,7 +89,7 @@ __END__
 
 Business::Tax::Withholding::JP - auto calculation for Japanese tax and withholding
 
-Business::Tax::Withholding::JP - 日本の消費税と源泉徴収を自動計算します。
+Business::Tax::Withholding::JP - 日本の消費税と源泉徴収のややこしい計算を自動化します。
 
  
 =head1 SYNOPSIS
@@ -100,11 +103,18 @@ Business::Tax::Withholding::JP - 日本の消費税と源泉徴収を自動計�
  $tax->withholding();   # 1021
  $tax->total();         # 9779
 
- # or you or You can set the date in period of special tax being expired
+ # Or you can set the date in period of special tax being expired
  $tax = Business::Tax::Withholding::JP->new( date => '2038-01-01' );
  $tax->price(10000);
  $tax->withholding();   # 1000
  $tax->total();         # 9800
+
+ # And you may ignore the withholings
+ $tax = Business::Tax::Withholding::JP->new( no_wh => 1 );
+ $tax->price(10000);
+ $tax->tax();           # 800
+ $tax->withholding();   # 0
+ $tax->total();         # 10800
 
 =head1 DESCRIPTION
 
@@ -115,14 +125,16 @@ You can get correctly taxes and withholdings from price in your context
 without worrying about the special tax for reconstructing from the Earthquake.
 
 the consumption tax B<rate is 8%>
+ 
+You can also ignore the withholings. It means this module can be a tax calculator
 
 Business::Tax::Withholding::JP は日本のビジネスで長期的に使えるモジュールです。
 特別復興所得税の期限を心配することなく、請求価格から正しく税金額と源泉徴収額を計算できます。
-B<消費税率は8％> です。
+なお、源泉徴収をしない経理にも対応します。B<消費税率は8％> です。
  
 =head2 Constructor
 
-=head3 new( price => I<Int>, date => I<Date> );
+=head3 new( price => I<Int>, date => I<Date>, no_wh => I<Bool> );
 
 You can omit these paramators.
 
@@ -141,6 +153,12 @@ price of your products will be set. defaults 0.
 You can set payday. the net of withholding depends on this. default is today.
  
 支払日を指定してください。源泉徴収額が変動することがあります。指定しなければ今日として計算します。
+ 
+=item no_wh
+ 
+If you set this flag, the all you can get is only tax and total. defaults 0 and this is read-only.
+
+このフラグを立てるとこのモジュールの長所を台無しにできます。初期値はもちろん0で、あとから変えることはできません。
  
 =back
  
