@@ -16,16 +16,16 @@ is $tax->withholding(), 0, "withholding";                           # 4
 is $tax->total(), 10800, "total";                                   # 5
 
 $tax->amount(0);
-is $tax->tax(), 0, "tax with amount 0";                             #10
-is $tax->full(), 0, "full with amount 0";                           #11
-is $tax->withholding(), 0, "withholding amount 0";                  #12
-is $tax->total(), 0, "total with amount 0";                         #13
+is $tax->tax(), 0, "tax with amount 0";                             # 6
+is $tax->full(), 0, "full with amount 0";                           # 7
+is $tax->withholding(), 0, "withholding amount 0";                  # 8
+is $tax->total(), 0, "total with amount 0";                         # 9
 
 $tax->amount(2);
-is $tax->tax(), 1600, "tax with amount 2";                          # 6
-is $tax->full(), 21600, "full with amount 2";                       # 7
-is $tax->withholding(), 0, "withholding amount 2";                  # 8
-is $tax->total(), 21600, "total with amount 2";                     # 9
+is $tax->tax(), 1600, "tax with amount 2";                          #10
+is $tax->full(), 21600, "full with amount 2";                       #11
+is $tax->withholding(), 0, "withholding amount 2";                  #12
+is $tax->total(), 21600, "total with amount 2";                     #13
 
 my $tax = Business::Tax::Withholding::JP->new();
 
@@ -39,15 +39,15 @@ is $tax->withholding(), 1021, "withholding";                        #17
 is $tax->total(), 9779, "total";                                    #18
 
 $tax->amount(0);
-is $tax->tax(), 0, "tax with amount 0";                             #23
-is $tax->full(), 0, "full with amount 0";                           #24
-is $tax->withholding(), 0, "withholding amount 0";                  #25
-is $tax->total(), 0, "total with amount 0";                         #26
+is $tax->tax(), 0, "tax with amount 0";                             #19
+is $tax->full(), 0, "full with amount 0";                           #20
+is $tax->withholding(), 0, "withholding amount 0";                  #21
+is $tax->total(), 0, "total with amount 0";                         #22
 
 $tax->amount(2);
-is $tax->tax(), 1600, "tax with amount 2";                          #19
-is $tax->full(), 21600, "full with amount 2";                       #20
-is $tax->withholding(), 2042, "withholding amount 2";               #21
-is $tax->total(), 19558, "total with amount 2";                     #22
+is $tax->tax(), 1600, "tax with amount 2";                          #23
+is $tax->full(), 21600, "full with amount 2";                       #24
+is $tax->withholding(), 2042, "withholding amount 2";               #25
+is $tax->total(), 19558, "total with amount 2";                     #26
 
 done_testing;

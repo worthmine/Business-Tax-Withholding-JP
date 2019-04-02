@@ -67,9 +67,9 @@ sub withholding {
 sub rate {
     my $self = shift;
     my $rate = $withholding{'rate'};
-    my $from = $t->strptime( $special{'from'}, '%Y-%m-%d');
-    my $until = $t->strptime( $special{'until'}, '%Y-%m-%d');
-    my $date = $t->strptime( $self->date(), '%Y-%m-%d');
+    my $from = $t->strptime( $special{'from'}, '%Y-%m-%d' );
+    my $until = $t->strptime( $special{'until'}, '%Y-%m-%d' );
+    my $date = $t->strptime( $self->date(), '%Y-%m-%d' );
 
     return $rate if $date < $from or $until < $date;
     return $rate + $special{'rate'};
@@ -78,7 +78,6 @@ sub rate {
 sub total {
     my $self = shift;
     return $self->full - $self->withholding;
-
 }
 
 1;
@@ -145,13 +144,13 @@ You can omit these paramators.
  
 =item price
  
-price of your products will be set. defaults 0.
+the price of your products will be set. defaults 0.
  
 税抜価格を指定してください。指定しなければ0です。
 
 =item amount
  
-amount of your products will be set. defaults 1.
+the amount of your products will be set. defaults 1.
  
 数量を指定してください。指定しなければ1です。
 

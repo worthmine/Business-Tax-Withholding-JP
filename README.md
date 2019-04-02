@@ -55,13 +55,13 @@ You can omit these paramators.
 
 - price
 
-    price of your products will be set. defaults 0.
+    the price of your products will be set. defaults 0.
 
     税抜価格を指定してください。指定しなければ0です。
 
 - amount
 
-    amount of your products will be set. defaults 1.
+    the amount of your products will be set. defaults 1.
 
     数量を指定してください。指定しなければ1です。
 
