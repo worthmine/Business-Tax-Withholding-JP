@@ -29,6 +29,7 @@ use Time::Piece;
 my $t = localtime;
 
 has price => ( is => 'rw', isa => 'Int', default => 0 );
+has amount => ( is => 'rw', isa => 'Int', default => 1 );
 has date => ( is => 'rw', isa => 'Str', default => $t->ymd() );
 has no_wh => ( is => 'ro', isa => 'Bool', default => 0 );
 
@@ -42,12 +43,12 @@ sub net {
 
 sub tax {
     my $self = shift;
-    return int( $self->price() * $consumption{'rate'} );
+    return int( $self->price() * $consumption{'rate'} ) * $self->amount();
 }
 
 sub full {
     my $self = shift;
-    return int( $self->price() + $self->tax() );
+    return int( $self->price() * $self->amount() + $self->tax() );
 }
 
 sub withholding {
@@ -55,11 +56,11 @@ sub withholding {
     return 0 if $self->no_wh();
     my $rate = $self->rate();
     if( $self->price() <= border ) {
-        return int( $self->price() * $rate );
+        return int( $self->price() * $rate ) * $self->amount();
     }else{
         my $base = $self->price() - border;
         
-        return int( $base * $rate * 2 + border * $rate );
+        return int( $base * $rate * 2 + border * $rate ) * $self->amount();
     }
 }
 
@@ -134,7 +135,7 @@ Business::Tax::Withholding::JP は日本のビジネスで長期的に使える�
  
 =head2 Constructor
 
-=head3 new( price => I<Int>, date => I<Date>, no_wh => I<Bool> );
+=head3 new( price => I<Int>, amount => I<Int>, date => I<Date>, no_wh => I<Bool> );
 
 You can omit these paramators.
 
@@ -147,7 +148,13 @@ You can omit these paramators.
 price of your products will be set. defaults 0.
  
 税抜価格を指定してください。指定しなければ0です。
+
+=item amount
  
+amount of your products will be set. defaults 1.
+ 
+数量を指定してください。指定しなければ1です。
+
 =item date
 
 You can set payday. the net of withholding depends on this. default is today.
@@ -172,6 +179,12 @@ You can reset the price.
 
 price に値を代入可能です。
  
+=item amount
+ 
+You can reset the amount.
+ 
+amount に値を代入可能です。
+
 =item date
 
 You can reset the payday like 'YYYY-MM-DD'
