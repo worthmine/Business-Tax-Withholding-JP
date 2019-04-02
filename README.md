@@ -47,7 +47,7 @@ Business::Tax::Withholding::JP は日本のビジネスで長期的に使える�
 
 ## Constructor
 
-### new( price => _Int_, date => _Date_, no\_wh => _Bool_ );
+### new( price => _Int_, amount => _Int_, date => _Date_, no\_wh => _Bool_ );
 
 You can omit these paramators.
 
@@ -58,6 +58,12 @@ You can omit these paramators.
     price of your products will be set. defaults 0.
 
     税抜価格を指定してください。指定しなければ0です。
+
+- amount
+
+    amount of your products will be set. defaults 1.
+
+    数量を指定してください。指定しなければ1です。
 
 - date
 
@@ -78,6 +84,12 @@ You can omit these paramators.
     You can reset the price.
 
     price に値を代入可能です。
+
+- amount
+
+    You can reset the amount.
+
+    amount に値を代入可能です。
 
 - date
 
