@@ -2,7 +2,6 @@ package Business::Tax::Withholding::JP;
 use 5.008001;
 use strict;
 use warnings;
-use Carp;
 
 our $VERSION = "0.03";
 
@@ -76,14 +75,9 @@ sub rate {
     return $rate + $special{'rate'};
 }
 
-sub subtotal {
+sub total {
     my $self = shift;
     return $self->full - $self->withholding;
-}
-
-sub total { # alias for old version
-    carp "subroutine 'total()' will be abolished";
-    subtotal(@_)
 }
 
 1;
@@ -108,13 +102,13 @@ Business::Tax::Withholding::JP - 日本の消費税と源泉徴収のややこ�
  $calc->tax();          # 800
  $calc->full();         # 10800
  $calc->withholding();  # 1021
- $calc->subtotal();     # 9779
+ $calc->total();        # 9779
 
  # Or you can set the date in period of special tax being expired
  $calc = Business::Tax::Withholding::JP->new( date => '2038-01-01' );
  $calc->price(10000);
  $calc->withholding();  # 1000
- $calc->subtotal();     # 9800
+ $calc->total();        # 9800
 
  # And you may ignore the withholings
  $calc = Business::Tax::Withholding::JP->new( no_wh => 1 );
@@ -122,7 +116,7 @@ Business::Tax::Withholding::JP - 日本の消費税と源泉徴収のややこ�
  $calc->amount(2);      # 2
  $calc->tax();          # 1600
  $calc->withholding();  # 0
- $calc->subtotal();     # 21600
+ $calc->total();        # 21600
 
 =head1 DESCRIPTION
 
@@ -170,7 +164,7 @@ You can set payday. the net of withholding depends on this. default is today.
  
 =item no_wh
  
-If you set this flag, the all you can get is only tax and subtotal. defaults 0 and this is read-only.
+If you set this flag, the all you can get is only tax and total. defaults 0 and this is read-only.
 
 このフラグを立てるとこのモジュールの長所を台無しにできます。初期値はもちろん0で、あとから変えることはできません。
  
@@ -223,15 +217,11 @@ You can get the net of your withholding from your pay.
 
 源泉徴収額を知りたい場合はこちらを
  
-=item subtotal
+=item total
 
-You can get the subtotal of your pay including tax without withholding
+You can get the total of your pay including tax without withholding
  
 源泉徴収額を差し引いた税込支払額を知りたい場合はこちらをお使いください。
- 
-=item total B<(will be abolished)>
-
-just staying for compatibility with old versions
  
 =back
 
