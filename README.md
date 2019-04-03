@@ -8,26 +8,28 @@ Business::Tax::Withholding::JP - 日本の消費税と源泉徴収のややこ�
 # SYNOPSIS
 
     use Business::Tax::Withholding::JP;
-    my $tax = Business::Tax::Withholding::JP->new( price => 10000 );
+    my $calc = Business::Tax::Withholding::JP->new( price => 10000 );
 
-    $tax->net();           # 10000
-    $tax->tax();           # 800
-    $tax->full();          # 10800
-    $tax->withholding();   # 1021
-    $tax->total();         # 9779
+    $calc->net();          # 10000
+    $calc->amount();       # 1
+    $calc->tax();          # 800
+    $calc->full();         # 10800
+    $calc->withholding();  # 1021
+    $calc->total();        # 9779
 
     # Or you can set the date in period of special tax being expired
-    $tax = Business::Tax::Withholding::JP->new( date => '2038-01-01' );
-    $tax->price(10000);
-    $tax->withholding();   # 1000
-    $tax->total();         # 9800
+    $calc = Business::Tax::Withholding::JP->new( date => '2038-01-01' );
+    $calc->price(10000);
+    $calc->withholding();  # 1000
+    $calc->total();        # 9800
 
     # And you may ignore the withholings
-    $tax = Business::Tax::Withholding::JP->new( no_wh => 1 );
-    $tax->price(10000);
-    $tax->tax();           # 800
-    $tax->withholding();   # 0
-    $tax->total();         # 10800
+    $calc = Business::Tax::Withholding::JP->new( no_wh => 1 );
+    $calc->price(10000);   # 10000
+    $calc->amount(2);      # 2
+    $calc->tax();          # 1600
+    $calc->withholding();  # 0
+    $calc->total();        # 21600
 
 # DESCRIPTION
 
