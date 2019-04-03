@@ -41,26 +41,30 @@ sub net {
     return $self->price();
 }
 
+sub subtotal {
+    my $self = shift;
+    return $self->price() * $self->amount();
+}
+
 sub tax {
     my $self = shift;
-    return int( $self->price() * $consumption{'rate'} ) * $self->amount();
+    return int( $self->subtotal() * $consumption{'rate'} );
 }
 
 sub full {
     my $self = shift;
-    return int( $self->price() * $self->amount() + $self->tax() );
+    return int( $self->subtotal() + $self->tax() );
 }
 
 sub withholding {
     my $self = shift;
     return 0 if $self->no_wh();
     my $rate = $self->rate();
-    if( $self->price() <= border ) {
-        return int( $self->price() * $rate ) * $self->amount();
+    if( $self->subtotal() <= border ) {
+        return int( $self->subtotal() * $rate );
     }else{
-        my $base = $self->price() - border;
-        
-        return int( $base * $rate * 2 + border * $rate ) * $self->amount();
+        my $base = $self->subtotal() - border;
+        return int( $base * $rate * 2 + border * $rate );
     }
 }
 
@@ -99,6 +103,7 @@ Business::Tax::Withholding::JP - 日本の消費税と源泉徴収のややこ�
 
  $calc->net();          # 10000
  $calc->amount();       # 1
+ $calc->subtotal();     # 10000
  $calc->tax();          # 800
  $calc->full();         # 10800
  $calc->withholding();  # 1021
@@ -114,6 +119,7 @@ Business::Tax::Withholding::JP - 日本の消費税と源泉徴収のややこ�
  $calc = Business::Tax::Withholding::JP->new( no_wh => 1 );
  $calc->price(10000);   # 10000
  $calc->amount(2);      # 2
+ $calc->subtotal();     # 20000
  $calc->tax();          # 1600
  $calc->withholding();  # 0
  $calc->total();        # 21600
@@ -198,6 +204,12 @@ You can get the net of your pay. it's equal to the price.
 So it's the alias of price().
  
 net は price と同じ働きをします。
+ 
+=item subtotal
+ 
+it returns price() * amount()
+
+subtotal は値と数量の積（小計）を返します。
  
 =item tax
  

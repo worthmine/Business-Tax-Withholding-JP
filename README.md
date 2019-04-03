@@ -12,6 +12,7 @@ Business::Tax::Withholding::JP - 日本の消費税と源泉徴収のややこ�
 
     $calc->net();          # 10000
     $calc->amount();       # 1
+    $calc->subtotal();     # 10000
     $calc->tax();          # 800
     $calc->full();         # 10800
     $calc->withholding();  # 1021
@@ -27,6 +28,7 @@ Business::Tax::Withholding::JP - 日本の消費税と源泉徴収のややこ�
     $calc = Business::Tax::Withholding::JP->new( no_wh => 1 );
     $calc->price(10000);   # 10000
     $calc->amount(2);      # 2
+    $calc->subtotal();     # 20000
     $calc->tax();          # 1600
     $calc->withholding();  # 0
     $calc->total();        # 21600
@@ -105,6 +107,12 @@ You can omit these paramators.
     So it's the alias of price().
 
     net は price と同じ働きをします。
+
+- subtotal
+
+    it returns price() \* amount()
+
+    subtotal は値と数量の積（小計）を返します。
 
 - tax
 

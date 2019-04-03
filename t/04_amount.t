@@ -1,5 +1,5 @@
 use strict;
-use Test::More 0.98 tests => 26;
+use Test::More 0.98 tests => 33;
 
 use lib 'lib';
 
@@ -10,44 +10,51 @@ note "without withholding---";
 
 $calc->price(10000);
 is $calc->net(), 10000, "net";                                      # 1
-is $calc->tax(), 800, "tax";                                        # 2
-is $calc->full(), 10800, "full";                                    # 3
-is $calc->withholding(), 0, "withholding";                          # 4
-is $calc->total(), 10800, "total";                                  # 5
+is $calc->subtotal(), 10000, "subtotal";                            # 2
+is $calc->tax(), 800, "tax";                                        # 3
+is $calc->full(), 10800, "full";                                    # 4
+is $calc->withholding(), 0, "withholding";                          # 5
+is $calc->total(), 10800, "total";                                  # 6
 
 $calc->amount(0);
-is $calc->tax(), 0, "tax with amount 0";                            # 6
-is $calc->full(), 0, "full with amount 0";                          # 7
-is $calc->withholding(), 0, "withholding amount 0";                 # 8
-is $calc->total(), 0, "total with amount 0";                        # 9
+is $calc->net(), 10000, "net";                                      # 7
+is $calc->subtotal(), 0, "subtotal with amount 0";                  # 8
+is $calc->tax(), 0, "tax with amount 0";                            # 9
+is $calc->full(), 0, "full with amount 0";                          #10
+is $calc->withholding(), 0, "withholding amount 0";                 #11
+is $calc->total(), 0, "total with amount 0";                        #12
 
 $calc->amount(2);
-is $calc->tax(), 1600, "tax with amount 2";                         #10
-is $calc->full(), 21600, "full with amount 2";                      #11
-is $calc->withholding(), 0, "withholding amount 2";                 #12
-is $calc->total(), 21600, "total with amount 2";                    #13
+is $calc->subtotal(), 20000, "subtotal with amount 2";              #13
+is $calc->tax(), 1600, "tax with amount 2";                         #14
+is $calc->full(), 21600, "full with amount 2";                      #15
+is $calc->withholding(), 0, "withholding amount 2";                 #16
+is $calc->total(), 21600, "total with amount 2";                    #17
 
 my $calc = Business::Tax::Withholding::JP->new();
 
 note "with withholding---";
 
 $calc->price(10000);
-is $calc->net(), 10000, "net";                                      #14
-is $calc->tax(), 800, "tax";                                        #15
-is $calc->full(), 10800, "full";                                    #16
-is $calc->withholding(), 1021, "withholding";                       #17
-is $calc->total(), 9779, "total";                                   #18
+is $calc->net(), 10000, "net";                                      #18
+is $calc->subtotal(), 10000, "subtotal";                            #19
+is $calc->tax(), 800, "tax";                                        #20
+is $calc->full(), 10800, "full";                                    #21
+is $calc->withholding(), 1021, "withholding";                       #22
+is $calc->total(), 9779, "total";                                   #23
 
 $calc->amount(0);
-is $calc->tax(), 0, "tax with amount 0";                            #19
-is $calc->full(), 0, "full with amount 0";                          #20
-is $calc->withholding(), 0, "withholding amount 0";                 #21
-is $calc->total(), 0, "total with amount 0";                        #22
+is $calc->subtotal(), 0, "subtotal with amount 0";                  #24
+is $calc->tax(), 0, "tax with amount 0";                            #25
+is $calc->full(), 0, "full with amount 0";                          #26
+is $calc->withholding(), 0, "withholding amount 0";                 #27
+is $calc->total(), 0, "total with amount 0";                        #28
 
 $calc->amount(2);
-is $calc->tax(), 1600, "tax with amount 2";                         #23
-is $calc->full(), 21600, "full with amount 2";                      #24
-is $calc->withholding(), 2042, "withholding amount 2";              #25
-is $calc->total(), 19558, "total with amount 2";                    #26
+is $calc->subtotal(), 20000, "subtotal with amount 2";              #29
+is $calc->tax(), 1600, "tax with amount 2";                         #30
+is $calc->full(), 21600, "full with amount 2";                      #31
+is $calc->withholding(), 2042, "withholding amount 2";              #32
+is $calc->total(), 19558, "total with amount 2";                    #33
 
 done_testing;
