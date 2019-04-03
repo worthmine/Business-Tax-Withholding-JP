@@ -2,9 +2,13 @@ Revision history for Perl extension Business-Tax-Withholding-JP
 
 {{$NEXT}}
 
+0.04 2019-04-03T02:50:56Z
+
+    - added subtotal() method and tests
+
 0.03 2019-04-02T23:11:10Z
 
-    - add amount() method and tests
+    - added amount() method and tests
 
 0.02 2019-04-01T12:40:33Z
 
