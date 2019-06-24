@@ -38,7 +38,7 @@ no Moose;
 
 sub net {
     my $self = shift;
-    return $self->price();
+    return $self->price(@_);
 }
 
 sub subtotal {
