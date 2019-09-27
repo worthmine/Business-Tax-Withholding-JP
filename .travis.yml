@@ -16,7 +16,8 @@ perl:
 - '5.28'
 - '5.30'
 
-script: cpanm Module::Build::Tiny
+before_install:
+  - 'cpanm Module::Build::Tiny'
 
 notifications:
   email: false
