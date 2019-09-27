@@ -2,15 +2,30 @@ package Business::Tax::Withholding::JP;
 use 5.008001;
 use strict;
 use warnings;
+use Time::Seconds;
 
-our $VERSION = "0.05";
+our $VERSION = "0.06";
 
 use constant { border => 1000000 };
 
 my %consumption = (
-    rate => 0.08,
+    rate => 0.10,
     name => '消費税',
 );
+
+my @history = ({
+    rate => 0.03,
+    since => '1989-04-01',
+    until => '1997-03-31',
+},{
+    rate => 0.05,
+    since => '1997-04-01',
+    until => '2014-03-31',
+},{
+    rate => 0.08,
+    since => '2014-04-01',
+    until => '2019-09-30',
+});
 
 my %withholding = (
     rate => 0.10,
@@ -20,13 +35,13 @@ my %withholding = (
 my %special = (
     rate => 0.0021,
     name => '復興特別所得税',
-    from => '2013-01-01',
+    since => '2013-01-01',
     until => '2037-12-31',
 );
 
 use Moose;
 use Time::Piece;
-my $t = localtime;
+my $t = localtime();
 
 has price => ( is => 'rw', isa => 'Int', default => 0 );
 has amount => ( is => 'rw', isa => 'Int', default => 1 );
@@ -48,7 +63,7 @@ sub subtotal {
 
 sub tax {
     my $self = shift;
-    return int( $self->subtotal() * $consumption{'rate'} );
+    return int( $self->subtotal() * $self->tax_rate() );
 }
 
 sub full {
@@ -59,7 +74,7 @@ sub full {
 sub withholding {
     my $self = shift;
     return 0 if $self->no_wh();
-    my $rate = $self->rate();
+    my $rate = $self->wh_rate();
     if( $self->subtotal() <= border ) {
         return int( $self->subtotal() * $rate );
     }else{
@@ -68,14 +83,27 @@ sub withholding {
     }
 }
 
-sub rate {
+sub tax_rate {
+    my $self = shift;
+    my $date = $t->strptime( $self->date(), '%Y-%m-%d' );
+    return 0 if $date < $t->strptime( $history[0]{'since'}, '%Y-%m-%d' );
+    return $consumption{'rate'} if $date > $t->strptime( $history[-1]{'until'}, '%Y-%m-%d' ) + ONE_DAY;
+
+    foreach my $h (@history) {
+        next unless $date < $t->strptime( $h->{'until'}, '%Y-%m-%d' ) + ONE_DAY;
+        return $h->{'rate'} if $date >= $t->strptime( $h->{'since'}, '%Y-%m-%d' );
+    }
+    return $consumption{'rate'};
+}
+
+sub wh_rate {
     my $self = shift;
     my $rate = $withholding{'rate'};
-    my $from = $t->strptime( $special{'from'}, '%Y-%m-%d' );
+    my $since = $t->strptime( $special{'since'}, '%Y-%m-%d' );
     my $until = $t->strptime( $special{'until'}, '%Y-%m-%d' );
     my $date = $t->strptime( $self->date(), '%Y-%m-%d' );
 
-    return $rate if $date < $from or $until < $date;
+    return $rate if $date < $since or $until < $date;
     return $rate + $special{'rate'};
 }
 
@@ -138,7 +166,7 @@ You can also ignore the withholings. It means this module can be a tax calculato
 
 Business::Tax::Withholding::JP は日本のビジネスで長期的に使えるモジュールです。
 特別復興所得税の期限を心配することなく、請求価格から正しく税金額と源泉徴収額を計算できます。
-なお、源泉徴収をしない経理にも対応します。B<消費税率は8％> です。
+なお、源泉徴収をしない経理にも対応します。B<消費税率は8%、2019年10月1日から自動的に10％> です。
  
 =head2 Constructor
 
@@ -239,13 +267,13 @@ You can get the total of your pay including tax without withholding
 
 =head1 LICENSE
 
-Copyright (C) worthmine.
+Copyright (C) Yuki Yoshida(worthmine).
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.
 
 =head1 AUTHOR
 
-worthmine E<lt>worthmine@cpan.orgE<gt>
+Yuki YoshidaE<lt>worthmine@gmail.comE<gt>
 
 =cut

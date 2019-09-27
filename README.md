@@ -47,7 +47,7 @@ You can also ignore the withholings. It means this module can be a tax calculato
 
 Business::Tax::Withholding::JP は日本のビジネスで長期的に使えるモジュールです。
 特別復興所得税の期限を心配することなく、請求価格から正しく税金額と源泉徴収額を計算できます。
-なお、源泉徴収をしない経理にも対応します。**消費税率は8％** です。
+なお、源泉徴収をしない経理にも対応します。**消費税率は8%、2019年10月1日から自動的に10％** です。
 
 ## Constructor
 
@@ -140,11 +140,11 @@ You can omit these paramators.
 
 # LICENSE
 
-Copyright (C) worthmine.
+Copyright (C) Yuki Yoshida(worthmine).
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.
 
 # AUTHOR
 
-worthmine <worthmine@cpan.org>
+Yuki Yoshida<worthmine@gmail.com>
