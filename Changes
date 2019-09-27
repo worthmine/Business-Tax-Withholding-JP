@@ -1,6 +1,8 @@
 Revision history for Perl extension Business-Tax-Withholding-JP
 
 {{$NEXT}}
+
+0.06 2019-09-27T10:22:51Z
     - upgrade for 10% consumption tax
 
 0.05 2019-06-24T02:58:23Z
