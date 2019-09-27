@@ -18,13 +18,13 @@ Business::Tax::Withholding::JP - 日本の消費税と源泉徴収のややこ�
     $calc->withholding();  # 1021
     $calc->total();        # 9779
 
-    # Or you can set the date in period of special tax being expired
+    # Or you can set the date in period of special tax will expire
     $calc = Business::Tax::Withholding::JP->new( date => '2038-01-01' );
     $calc->price(10000);
     $calc->withholding();  # 1000
     $calc->total();        # 9800
 
-    # And you may ignore the withholings
+    # And you may ignore the withholdings
     $calc = Business::Tax::Withholding::JP->new( no_wh => 1 );
     $calc->price(10000);   # 10000
     $calc->amount(2);      # 2
@@ -32,6 +32,15 @@ Business::Tax::Withholding::JP - 日本の消費税と源泉徴収のややこ�
     $calc->tax();          # 1600
     $calc->withholding();  # 0
     $calc->total();        # 21600
+
+    # After 2019/10/01, this module will calculate with 10% consumption tax
+    $calc = Business::Tax::Withholding::JP->new( price => 10000 );
+    $calc->net();          # 10000
+    $calc->amount(2);      # 2
+    $calc->subtotal();     # 20000
+    $calc->tax();          # 2000
+    $calc->withholding();  # 2042
+    $calc->total();        # 19958
 
 # DESCRIPTION
 
@@ -41,7 +50,7 @@ is useful calculator for long term in Japanese Business.
 You can get correctly taxes and withholdings from price in your context
 without worrying about the special tax for reconstructing from the Earthquake.
 
-the consumption tax **rate is 8%**
+the consumption tax **rate is 8% (automatically up to 10% after 2019/10/01)**
 
 You can also ignore the withholings. It means this module can be a tax calculator
 
@@ -71,9 +80,9 @@ You can omit these paramators.
 
 - date
 
-    You can set payday. the net of withholding depends on this. default is today.
+    You can set payday. the net of tax and withholding depends on this. default is today.
 
-    支払日を指定してください。源泉徴収額が変動することがあります。指定しなければ今日として計算します。
+    支払日を指定してください。消費税額と源泉徴収額が変動します。指定しなければ今日として計算します。
 
 - no\_wh
 
