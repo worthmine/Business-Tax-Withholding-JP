@@ -1,7 +1,7 @@
 {
    "abstract" : "auto calculation for Japanese tax and withholding",
    "author" : [
-      "Yuki Yoshida<worthmine@gmail.com>"
+      "Yuki Yoshida <worthmine@gmail.com>"
    ],
    "dynamic_config" : 0,
    "generated_by" : "Minilla/v3.1.4, CPAN::Meta::Converter version 2.150010",
@@ -65,7 +65,7 @@
          "web" : "https://github.com/worthmine/Business-Tax-Withholding-JP"
       }
    },
-   "version" : "0.06",
+   "version" : "0.07",
    "x_authority" : "cpan:WORTHMINE",
    "x_contributors" : [
       "worthmine <worthmine@cpan.org>"

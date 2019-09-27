@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use Time::Seconds;
 
-our $VERSION = "0.06";
+our $VERSION = "0.07";
 
 use constant { border => 1000000 };
 
@@ -282,6 +282,6 @@ it under the same terms as Perl itself.
 
 =head1 AUTHOR
 
-Yuki YoshidaE<lt>worthmine@gmail.comE<gt>
+Yuki Yoshida E<lt>worthmine@gmail.comE<gt>
 
 =cut
