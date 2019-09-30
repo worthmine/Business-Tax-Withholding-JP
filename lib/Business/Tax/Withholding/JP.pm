@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use Time::Seconds;
 
-our $VERSION = "0.07";
+our $VERSION = "0.08";
 
 use constant { border => 1000000 };
 
