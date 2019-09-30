@@ -20,8 +20,7 @@ before_install:
   - 'cpanm Module::Build::Tiny'
 
 before_script:
-  - echo 'Tokyo/Asia' | sudo tee /etc/timezone
-  - sudo dpkg-reconfigure --frontend noninteractive tzdata
+  - export TZ=Asia/Tokyo
 
 notifications:
   email: false
