@@ -20,7 +20,7 @@ before_install:
   - 'cpanm Module::Build::Tiny'
 
 before_script:
-  - echo 'Canada/Pacific' | sudo tee /etc/timezone
+  - echo 'Tokyo/Asia' | sudo tee /etc/timezone
   - sudo dpkg-reconfigure --frontend noninteractive tzdata
 
 notifications:
