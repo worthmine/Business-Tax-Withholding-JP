@@ -69,7 +69,7 @@
          "web" : "https://github.com/worthmine/Business-Tax-Withholding-JP"
       }
    },
-   "version" : "0.92",
+   "version" : "0.93",
    "x_authority" : "cpan:WORTHMINE",
    "x_contributors" : [
       "Yuki Yoshida(worthmine) <2944869+worthmine@users.noreply.github.com>",

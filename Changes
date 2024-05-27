@@ -2,8 +2,11 @@ Revision history for Perl extension Business-Tax-Withholding-JP
 
 {{$NEXT}}
 
+0.93 2024-05-27T07:19:53Z
+    - no changes
+
 0.92 2024-05-27T07:16:54Z
-    - debuged
+    - debugged
 
 0.91 2024-05-27T07:10:06Z
     - just fixed version typo of equired modules
