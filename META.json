@@ -43,7 +43,7 @@
       "runtime" : {
          "requires" : {
             "Moo" : "2.005005",
-            "Time::Piece" : "1.3401_01",
+            "Time::Piece" : "1.340101",
             "Time::Seconds" : "1.3401",
             "Type::Params" : "2.004000",
             "Types::Standard" : "2.004000",
@@ -69,9 +69,10 @@
          "web" : "https://github.com/worthmine/Business-Tax-Withholding-JP"
       }
    },
-   "version" : "0.09",
+   "version" : "0.91",
    "x_authority" : "cpan:WORTHMINE",
    "x_contributors" : [
+      "Yuki Yoshida(worthmine) <2944869+worthmine@users.noreply.github.com>",
       "worthmine <worthmine@cpan.org>"
    ],
    "x_serialization_backend" : "JSON::PP version 4.16",
