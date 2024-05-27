@@ -43,7 +43,7 @@
       "runtime" : {
          "requires" : {
             "Moo" : "2.005005",
-            "Time::Piece" : "1.340101",
+            "Time::Piece" : "1.3401",
             "Time::Seconds" : "1.3401",
             "Type::Params" : "2.004000",
             "Types::Standard" : "2.004000",
